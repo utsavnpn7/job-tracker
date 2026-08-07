@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Career-Ops — AI Job Search Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0f172a;
+    --surface: #1e293b;
+    --surface-hover: #334155;
+    --border: #334155;
+    --text: #f8fafc;
+    --text-muted: #94a3b8;
+    --primary: #38bdf8;
+    --primary-glow: rgba(56, 189, 248, 0.15);
+    --accent: #818cf8;
+    --success: #34d399;
+    --warning: #fbbf24;
+    --danger: #f87171;
+    --radius: 12px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    padding: 24px;
+    min-height: 100vh;
+  }
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 28px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .brand-logo {
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 18px;
+    color: #fff;
+    box-shadow: 0 0 20px var(--primary-glow);
+  }
+
+  .brand-title {
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    background: linear-gradient(to right, #fff, var(--text-muted));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin-bottom: 28px;
+  }
+
+  .stat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .stat-label {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .stat-value {
+    font-size: 28px;
+    font-weight: 700;
+    color: #fff;
+  }
+
+  .controls {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+  }
+
+  .search-input {
+    flex: 1;
+    min-width: 260px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: #fff;
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .search-input:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px var(--primary-glow);
+  }
+
+  .btn {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    text-decoration: none;
+  }
+
+  .btn:hover {
+    background: var(--surface-hover);
+    border-color: var(--primary);
+  }
+
+  .btn-primary {
+    background: var(--primary);
+    color: #0f172a;
+    border: none;
+    font-weight: 600;
+  }
+
+  .btn-primary:hover {
+    background: #0284c7;
+    color: #fff;
+  }
+
+  .table-container {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    font-size: 14px;
+  }
+
+  th {
+    background: rgba(15, 23, 42, 0.6);
+    color: var(--text-muted);
+    font-weight: 600;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 14px 18px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  td {
+    padding: 16px 18px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text);
+  }
+
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: var(--surface-hover); }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  .badge-score-high { background: rgba(52, 211, 153, 0.15); color: var(--success); border: 1px solid rgba(52, 211, 153, 0.3); }
+  .badge-score-mid { background: rgba(251, 191, 36, 0.15); color: var(--warning); border: 1px solid rgba(251, 191, 36, 0.3); }
+  .badge-score-low { background: rgba(248, 113, 113, 0.15); color: var(--danger); border: 1px solid rgba(248, 113, 113, 0.3); }
+
+  .badge-status { background: rgba(129, 140, 248, 0.15); color: var(--accent); border: 1px solid rgba(129, 140, 248, 0.3); }
+
+  .link-btn {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+  .link-btn:hover { text-decoration: underline; color: #7dd3fc; }
+</style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="brand">
+      <div class="brand-logo">C</div>
+      <div>
+        <div class="brand-title">Career-Ops Dashboard</div>
+        <div style="font-size: 12px; color: var(--text-muted);">AI Job Search Command Center</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-label">Evaluated Roles</div>
+      <div class="stat-value">9</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Average Fit Score</div>
+      <div class="stat-value" style="color: var(--success);">3.9 / 5</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Top Match</div>
+      <div class="stat-value" style="color: var(--primary);">4.2 / 5</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Location</div>
+      <div class="stat-value" style="font-size: 18px; line-height: 28px;">Sydney, AU</div>
+    </div>
+  </div>
+
+  <div class="controls">
+    <input type="text" id="searchInput" class="search-input" placeholder="Search company, role, or notes..." onkeyup="filterTable()">
+  </div>
+
+  <div class="table-container">
+    <table id="appTable">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Date</th>
+          <th>Company</th>
+          <th>Role</th>
+          <th>Score</th>
+          <th>Status</th>
+          <th>Tailored CV</th>
+          <th>Full Report</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>001</strong></td>
+          <td>2026-08-07</td>
+          <td><strong>Arista Networks</strong></td>
+          <td>Graduate Software Engineer, EOS - Sydney</td>
+          <td><span class="badge badge-score-high">4.1 / 5</span></td>
+          <td><span class="badge badge-status">Bookmarked</span></td>
+          <td><a class="link-btn" href="output/cv-001.pdf" target="_blank">📄 cv-001.pdf</a></td>
+          <td><a class="link-btn" href="reports/001-arista-networks-graduate-software-engineer-eos-sydney-2026-08-07.md" target="_blank">📝 Report #001</a></td>
+          <td>High fit graduate software engineering role in Sydney</td>
+        </tr>
+        <tr>
+          <td><strong>002</strong></td>
+          <td>2026-08-07</td>
+          <td><strong>Arista Networks</strong></td>
+          <td>Software Engineer, EOS (Early-career/Mid-level) - Sydney</td>
+          <td><span class="badge badge-score-high">4.0 / 5</span></td>
+          <td><span class="badge badge-status">Bookmarked</span></td>
+          <td><a class="link-btn" href="output/cv-002.pdf" target="_blank">📄 cv-002.pdf</a></td>
+          <td><a class="link-btn" href="reports/002-arista-networks-software-engineer-eos-early-career-sydney-2026-08-07.md" target="_blank">📝 Report #002</a></td>
+          <td>Recommended early-career software engineering role in Sydney</td>
+        </tr>
+        <tr>
+          <td><strong>003</strong></td>
+          <td>2026-08-07</td>
+          <td><strong>SafetyCulture</strong></td>
+          <td>Software Engineer II - Integrations</td>
+          <td><span class="badge badge-score-high">4.2 / 5</span></td>
+          <td><span class="badge badge-status">Bookmarked</span></td>
+          <td><a class="link-btn" href="output/cv-003.pdf" target="_blank">📄 cv-003.pdf</a></td>
+          <td><a class="link-btn" href="reports/003-safetyculture-software-engineer-ii-integrations-sydney-2026-08-07.md" target="_blank">📝 Report #003</a></td>
+          <td>High fit integrations & AI agentic connectors role in Sydney (Surry Hills)</td>
+        </tr>
+        <tr>
+          <td><strong>004</strong></td>
+          <td>2026-08-07</td>
+          <td><strong>ScaleUp Recruitment</strong></td>
+          <td>C# Software Engineer / Global Trading Company</td>
+          <td><span class="badge badge-score-mid">3.3 / 5</span></td>
+          <td><span class="badge badge-status" style="background: rgba(148, 163, 184, 0.15); color: #94a3b8;">Ignored</span></td>
+          <td><a class="link-btn" href="output/cv-004.pdf" target="_blank">📄 cv-004.pdf</a></td>
+          <td><a class="link-btn" href="reports/004-scaleup-recruitment-csharp-software-engineer-sydney-2026-08-07.md" target="_blank">📝 Report #004</a></td>
+          <td>Stack mismatch (C# HFT vs JS/TS/Azure/Python)</td>
+        </tr>
+        <tr>
+          <td><strong>005</strong></td>
+          <td>2026-08-07</td>
+          <td><strong>Dematic</strong></td>
+          <td>Graduate Software Engineer</td>
+          <td><span class="badge badge-score-high">4.1 / 5</span></td>
+          <td><span class="badge badge-status">Bookmarked</span></td>
+          <td><a class="link-btn" href="output/cv-005.pdf" target="_blank">📄 cv-005.pdf</a></td>
+          <td><a class="link-btn" href="reports/005-dematic-graduate-software-engineer-sydney-2026-08-07.md" target="_blank">📝 Report #005</a></td>
+          <td>Recommended graduate software program in Belrose, Sydney</td>
+        </tr>
+        <tr>
+          <td><strong>006</strong></td>
+          <td>2026-08-07</td>
+          <td><strong>Eucalyptus</strong></td>
+          <td>Software Engineer II</td>
+          <td><span class="badge badge-score-high">3.7 / 5</span></td>
+          <td><span class="badge badge-status">Bookmarked</span></td>
+          <td><a class="link-btn" href="output/cv-006.pdf" target="_blank">📄 cv-006.pdf</a></td>
+          <td><a class="link-btn" href="reports/006-eucalyptus-software-engineer-ii-sydney-2026-08-07.md" target="_blank">📝 Report #006</a></td>
+          <td>Full-stack TS/React/Node match; talent pool requisition in Sydney</td>
+        </tr>
+        <tr>
+          <td><strong>007</strong></td>
+          <td>2026-08-07</td>
+          <td><strong>Easyasset Group</strong></td>
+          <td>Full Stack AI Engineer</td>
+          <td><span class="badge badge-score-high">4.3 / 5</span></td>
+          <td><span class="badge badge-status">Bookmarked</span></td>
+          <td><a class="link-btn" href="output/cv-007.pdf" target="_blank">📄 cv-007.pdf</a></td>
+          <td><a class="link-btn" href="reports/007-easyasset-full-stack-ai-engineer-sydney-2026-08-07.md" target="_blank">📝 Report #007</a></td>
+          <td>Strong fit full-stack & AI engineering role in Sydney (Zetland)</td>
+        </tr>
+        <tr>
+          <td><strong>008</strong></td>
+          <td>2026-08-07</td>
+          <td><strong>Henderson Advocacy</strong></td>
+          <td>Software Engineer - AI Systems & Automation</td>
+          <td><span class="badge badge-score-high">4.6 / 5</span></td>
+          <td><span class="badge badge-status">Bookmarked</span></td>
+          <td><a class="link-btn" href="output/cv-008.pdf" target="_blank">📄 cv-008.pdf</a></td>
+          <td><a class="link-btn" href="reports/008-henderson-advocacy-software-engineer-ai-systems-sydney-2026-08-07.md" target="_blank">📝 Report #008</a></td>
+          <td>Exceptional AI systems & automation fit in Sydney (Paddington)</td>
+        </tr>
+        <tr>
+          <td><strong>009</strong></td>
+          <td>2026-08-07</td>
+          <td><strong>Rippling</strong></td>
+          <td>Software Engineer</td>
+          <td><span class="badge badge-score-high">3.6 / 5</span></td>
+          <td><span class="badge badge-status">Bookmarked</span></td>
+          <td><a class="link-btn" href="output/cv-009.pdf" target="_blank">📄 cv-009.pdf</a></td>
+          <td><a class="link-btn" href="reports/009-rippling-software-engineer-sydney-2026-08-07.md" target="_blank">📝 Report #009</a></td>
+          <td>Workforce domain match (WorkHive); high-growth Sydney platform</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+    function filterTable() {
+      const input = document.getElementById("searchInput").value.toLowerCase();
+      const rows = document.querySelectorAll("#appTable tbody tr");
+      rows.forEach(row => {
+        const text = row.innerText.toLowerCase();
+        row.style.display = text.includes(input) ? "" : "none";
+      });
+    }
+  </script>
+
+</body>
+</html>

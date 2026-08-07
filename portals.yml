@@ -1,0 +1,296 @@
+title_filter:
+  positive:
+    - Full Stack
+    - Full-Stack
+    - Fullstack
+    - Software Engineer
+    - Software Developer
+    - Frontend
+    - Front-End
+    - Front End
+    - Backend
+    - Back-End
+    - Back End
+    - Web Developer
+    - React
+    - React Native
+    - Node
+    - Node.js
+    - JavaScript
+    - TypeScript
+    - Mobile Developer
+    - Cloud Developer
+    - Azure Developer
+    - Graduate
+    - Graduate Developer
+    - Graduate Software Engineer
+    - Graduate Program
+    - Junior
+    - Junior Developer
+    - Junior Software Engineer
+    - Associate Software Engineer
+    - Software Engineer I
+  negative:
+    - Senior
+    - Staff
+    - Principal
+    - 'Lead '
+    - Director
+    - Head of
+    - Manager
+    - iOS Developer
+    - Android Developer
+    - 'Java '
+    - PHP
+    - Ruby
+    - Salesforce Admin
+    - 'SAP '
+    - Mainframe
+    - COBOL
+location_filter:
+  always_allow:
+    - Australia
+    - Sydney
+  allow:
+    - Remote
+    - Australia
+    - Sydney
+    - Melbourne
+    - Brisbane
+    - Perth
+    - Adelaide
+    - Canberra
+    - Hobart
+    - APAC
+    - AU
+search_queries:
+  - name: Seek — Full Stack / Software Engineer (AU)
+    query: >-
+      site:seek.com.au "Full Stack" OR "Software Engineer" OR "Software
+      Developer" (React OR Node OR JavaScript OR TypeScript) Sydney OR Melbourne
+      OR remote
+    enabled: true
+  - name: Seek — Junior / Graduate Developer (AU)
+    query: >-
+      site:seek.com.au "Junior Developer" OR "Graduate Software Engineer" OR
+      "Graduate Developer" OR "Junior Software Engineer" Sydney OR Australia
+    enabled: true
+  - name: LinkedIn — Full Stack / Software Engineer (AU)
+    query: >-
+      site:linkedin.com/jobs "Full Stack" OR "Software Engineer" OR "Software
+      Developer" (React OR Node.js OR TypeScript) Australia OR Sydney
+    enabled: true
+  - name: LinkedIn — Junior / Graduate Developer (AU)
+    query: >-
+      site:linkedin.com/jobs "Junior Developer" OR "Graduate Software Engineer"
+      OR "Graduate Program" Australia OR Sydney
+    enabled: true
+  - name: LinkedIn — Azure / Cloud & MERN Engineer (Sydney / AU)
+    query: >-
+      site:linkedin.com/jobs ("Azure Developer" OR "Cloud Developer" OR "MERN"
+      OR "React Native") Sydney OR Australia
+    enabled: true
+  - name: LinkedIn — Recruiter Hiring Posts (Sydney / AU)
+    query: >-
+      site:linkedin.com/posts "hiring" ("Junior Developer" OR "Graduate
+      Engineer" OR "Software Developer") Sydney
+    enabled: true
+  - name: Indeed — Full Stack / Software Engineer (AU)
+    query: >-
+      site:au.indeed.com "Full Stack" OR "Software Engineer" OR "Software
+      Developer" (React OR Node OR JavaScript OR TypeScript) Sydney OR Australia
+    enabled: false
+  - name: Indeed — Junior / Graduate Developer (AU)
+    query: >-
+      site:au.indeed.com "Junior Developer" OR "Graduate Software Engineer" OR
+      "Graduate Developer" OR "Junior Software Engineer" Sydney OR Australia
+    enabled: false
+  - name: SmartRecruiters — Full Stack / Software Engineer (AU)
+    query: >-
+      site:jobs.smartrecruiters.com "Full Stack" OR "Software Engineer" OR
+      "Software Developer" (React OR Node OR JavaScript OR TypeScript) Sydney OR
+      Australia
+    enabled: true
+  - name: SmartRecruiters — Junior / Graduate Developer (AU)
+    query: >-
+      site:jobs.smartrecruiters.com "Junior Developer" OR "Graduate Software
+      Engineer" OR "Graduate Developer" OR "Junior Software Engineer" Sydney OR
+      Australia
+    enabled: true
+  - name: Prosple / GradAustralia — Graduate & Junior Tech (AU)
+    query: >-
+      site:au.prosple.com "Software Engineer" OR "Developer" OR "Graduate" OR
+      "Junior" Sydney OR Australia
+    enabled: true
+  - name: GradConnection — Graduate & Junior Software (AU)
+    query: >-
+      site:au.gradconnection.com "Software" OR "Developer" OR "Engineering" OR
+      "Graduate" Sydney OR Australia
+    enabled: true
+  - name: Jora Australia — Full Stack / Software Engineer
+    query: >-
+      site:au.jora.com "Full Stack" OR "Software Engineer" OR "Software
+      Developer" (React OR Node OR TypeScript) Sydney OR Australia
+    enabled: true
+  - name: Hatch Australia — Early Career Tech Roles
+    query: site:hatch.team "Software Engineer" OR "Developer" Sydney OR Australia
+    enabled: true
+  - name: Direct Greenhouse — Software Engineer (Sydney / AU)
+    query: >-
+      site:job-boards.greenhouse.io "Software Engineer" OR "Developer" (Sydney
+      OR Australia)
+    enabled: true
+  - name: Direct Lever — Software Engineer (Sydney / AU)
+    query: 'site:jobs.lever.co "Software Engineer" OR "Developer" (Sydney OR Australia)'
+    enabled: true
+  - name: Adzuna — Full Stack / Software Engineer (AU)
+    query: 'site:adzuna.com.au "Full Stack" OR "Software Engineer" OR "Software Developer" (React OR Node OR TypeScript) Sydney OR Australia'
+    enabled: true
+  - name: Adzuna — Junior / Graduate Developer (AU)
+    query: 'site:adzuna.com.au "Junior Developer" OR "Graduate Software Engineer" OR "Graduate Developer" Sydney OR Australia'
+    enabled: true
+tracked_companies:
+  - name: Arista Networks
+    careers_url: https://jobs.smartrecruiters.com/AristaNetworks
+    notes: >-
+      Global networking & EOS team. Sydney office. Auto-detected SmartRecruiters
+      provider.
+    enabled: true
+  - name: Canva
+    careers_url: https://jobs.smartrecruiters.com/Canva
+    notes: Sydney HQ tech unicorn. Direct SmartRecruiters ATS integration.
+    enabled: true
+  - name: Airwallex
+    careers_url: https://jobs.ashbyhq.com/airwallex
+    notes: Melbourne-founded fintech unicorn. Direct Ashby ATS integration.
+    enabled: true
+  - name: Optiver
+    careers_url: https://job-boards.greenhouse.io/optiver
+    notes: >-
+      Sydney HQ. Leading market maker & trading tech firm. Graduate Software
+      Engineer program.
+    enabled: true
+  - name: Buildkite
+    careers_url: https://job-boards.greenhouse.io/buildkite
+    notes: >-
+      Melbourne/Sydney remote. Dev tools & CI/CD platform. Direct Greenhouse
+      ATS.
+    enabled: true
+  - name: Octopus Deploy
+    careers_url: https://job-boards.greenhouse.io/octopusdeploy
+    notes: >-
+      Brisbane/Sydney/Remote AU. Automated deployment platform. Direct
+      Greenhouse ATS.
+    enabled: true
+  - name: SafetyCulture
+    careers_url: https://jobs.ashbyhq.com/safetyculture
+    notes: Sydney HQ. Workplace ops platform. Direct Ashby ATS integration.
+    enabled: true
+  - name: Culture Amp
+    careers_url: https://job-boards.greenhouse.io/cultureamp
+    notes: >-
+      Melbourne HQ. Employee experience platform. Direct Greenhouse ATS
+      integration.
+    enabled: true
+  - name: Zip Co
+    careers_url: https://jobs.ashbyhq.com/zip
+    notes: Sydney HQ. BNPL fintech. Direct Ashby ATS integration.
+    enabled: true
+  - name: Deputy
+    careers_url: https://jobs.lever.co/deputy
+    notes: Sydney HQ. Workforce management SaaS. Direct Lever ATS integration.
+    enabled: true
+  - name: Eucalyptus
+    careers_url: https://job-boards.greenhouse.io/eucalyptus
+    notes: Sydney HQ. Digital healthcare scaleup. Direct Greenhouse ATS integration.
+    enabled: true
+  - name: Prospa
+    careers_url: https://job-boards.greenhouse.io/prospa
+    notes: Sydney HQ. Small business fintech. Direct Greenhouse ATS integration.
+    enabled: true
+  - name: Atlassian
+    careers_url: https://www.atlassian.com/company/careers/all-jobs
+    scan_method: websearch
+    scan_query: >-
+      "atlassian" careers "Software Engineer" OR "Full Stack" OR "Graduate" OR
+      "Frontend" OR "Backend" Sydney
+    notes: Sydney HQ. Remote-first (Team Anywhere). Runs a regular graduate program.
+    enabled: true
+  - name: Xero
+    careers_url: https://careers.xero.com
+    scan_method: websearch
+    scan_query: >-
+      "xero" careers "Software Engineer" OR "Full Stack" OR "Frontend" OR
+      "Backend" OR "Graduate" Sydney OR Melbourne
+    notes: AU/NZ accounting SaaS. Sydney and Melbourne engineering offices.
+    enabled: true
+  - name: Employment Hero
+    careers_url: https://employmenthero.com/careers/
+    scan_method: websearch
+    scan_query: >-
+      "employment hero" careers "Software Engineer" OR "Full Stack" OR
+      "Frontend" OR "Backend"
+    notes: Sydney HQ. HR/payroll SaaS, fast-growing.
+    enabled: true
+  - name: REA Group
+    careers_url: https://www.rea-group.com/careers/
+    scan_method: websearch
+    scan_query: >-
+      "rea group" careers "Software Engineer" OR "Full Stack" OR "Frontend" OR
+      "Backend" OR "Graduate"
+    notes: Melbourne HQ. Runs realestate.com.au. Established graduate program.
+    enabled: true
+  - name: Linktree
+    careers_url: https://linktr.ee/careers
+    scan_method: websearch
+    scan_query: >-
+      "linktree" careers "Software Engineer" OR "Full Stack" OR "Frontend" OR
+      "Backend"
+    notes: Melbourne HQ.
+    enabled: true
+  - name: Go1
+    careers_url: https://www.go1.com/careers
+    scan_method: websearch
+    scan_query: >-
+      "go1" careers "Software Engineer" OR "Full Stack" OR "Frontend" OR
+      "Backend"
+    notes: Brisbane HQ. E-learning platform.
+    enabled: true
+  - name: Judo Bank
+    careers_url: https://www.judo.bank/careers/
+    scan_method: websearch
+    scan_query: >-
+      "judo bank" careers "Software Engineer" OR "Full Stack" OR "Frontend" OR
+      "Backend"
+    notes: Melbourne HQ. Challenger bank for SMEs.
+    enabled: true
+  - name: carsales
+    careers_url: https://www.carsalescareers.com.au
+    scan_method: websearch
+    scan_query: >-
+      "carsales" careers "Software Engineer" OR "Full Stack" OR "Frontend" OR
+      "Backend"
+    notes: Melbourne HQ. ASX-listed automotive marketplace.
+    enabled: true
+  - name: Domain Group
+    careers_url: https://www.domain.com.au/group/careers/
+    scan_method: websearch
+    scan_query: >-
+      "domain group" careers "Software Engineer" OR "Full Stack" OR "Frontend"
+      OR "Backend" OR "Graduate"
+    notes: Sydney HQ. Property listings platform.
+    enabled: true
+  - name: Adzuna
+    careers_url: https://www.adzuna.com.au/
+    notes: ''
+    enabled: true
+    scan_method: jobstreet
+job_boards:
+  - name: SEEK Australia
+    provider: jobstreet
+    api: https://www.seek.com.au/api/jobsearch/v5/search
+    siteKey: AU-Main
+    searchKeywords: Software Engineer
+    searchLocation: Sydney
+    enabled: true
+    notes: SEEK v5 API integration for Australia
