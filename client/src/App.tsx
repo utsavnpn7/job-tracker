@@ -6,10 +6,12 @@ import { AppliedTrackerTab } from './components/AppliedTrackerTab';
 import { CvEditorTab } from './components/CvEditorTab';
 import { GeneratedCvsTab } from './components/GeneratedCvsTab';
 import { PortalsTab } from './components/PortalsTab';
+import { LoginView } from './components/LoginView';
 
 export function App() {
   const [activeTab, setActiveTab] = useState('dashboard');
   const [isConnected, setIsConnected] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
 
   // Data States
   const [dashboardStats, setDashboardStats] = useState<any>(null);
@@ -28,6 +30,21 @@ export function App() {
   const [isAgentRunning, setIsAgentRunning] = useState(false);
   const [activeProcessingUrl, setActiveProcessingUrl] = useState<string | null>(null);
   const [isLoadingCv, setIsLoadingCv] = useState(false);
+
+  // Auth Status Check
+  const checkAuth = async () => {
+    try {
+      const res = await fetch('/api/auth-status');
+      const json = await res.json();
+      setIsAuthenticated(json.authenticated);
+    } catch {
+      setIsAuthenticated(false);
+    }
+  };
+
+  useEffect(() => {
+    checkAuth();
+  }, []);
 
   // Fetch Dashboard Stats
   const fetchDashboard = async () => {
@@ -322,6 +339,27 @@ export function App() {
     }
   };
 
+  const handleLogout = async () => {
+    try {
+      await fetch('/api/logout', { method: 'POST' });
+    } catch {
+      // ignore
+    }
+    setIsAuthenticated(false);
+  };
+
+  if (isAuthenticated === false) {
+    return <LoginView onLoginSuccess={() => { setIsAuthenticated(true); fetchDashboard(); fetchPipeline(); fetchAppliedJobs(); }} />;
+  }
+
+  if (isAuthenticated === null) {
+    return (
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '100vh', background: '#0f0f17', color: '#94a3b8' }}>
+        Authenticating...
+      </div>
+    );
+  }
+
   return (
     <div className="app-container">
       <Navbar
@@ -331,6 +369,7 @@ export function App() {
         isConnected={isConnected}
         onRunAgent={handleRunAgent}
         isAgentRunning={isAgentRunning}
+        onLogout={handleLogout}
       />
 
       <main className="main-content">

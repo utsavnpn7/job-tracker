@@ -1,5 +1,5 @@
 import React from 'react';
-import { Briefcase, LayoutDashboard, FileText, Globe, RefreshCw, Cpu, Activity, Sparkles, GitPullRequest } from 'lucide-react';
+import { Briefcase, LayoutDashboard, FileText, Globe, RefreshCw, Cpu, Activity, Sparkles, GitPullRequest, LogOut } from 'lucide-react';
 
 interface NavbarProps {
   activeTab: string;
@@ -8,6 +8,7 @@ interface NavbarProps {
   isConnected: boolean;
   onRunAgent: (command: string) => void;
   isAgentRunning: boolean;
+  onLogout: () => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
@@ -17,6 +18,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   isConnected,
   onRunAgent,
   isAgentRunning,
+  onLogout,
 }) => {
   return (
     <header className="navbar">
@@ -113,6 +115,16 @@ export const Navbar: React.FC<NavbarProps> = ({
         >
           <Activity size={16} />
           Doctor
+        </button>
+
+        <button
+          className="btn-secondary"
+          onClick={onLogout}
+          title="Logout of Career-Ops"
+          style={{ background: 'rgba(239, 68, 68, 0.1)', color: '#fca5a5', borderColor: 'rgba(239, 68, 68, 0.2)' }}
+        >
+          <LogOut size={16} />
+          Logout
         </button>
       </div>
     </header>

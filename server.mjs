@@ -5,6 +5,9 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import { spawn } from 'child_process';
 import yaml from 'js-yaml';
+import dotenv from 'dotenv';
+dotenv.config();
+
 import { extractJdSkills, classifySkillGaps } from './jd-skill-gap.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -44,7 +47,6 @@ function parseCookies(req) {
 }
 
 function isAuthenticated(req) {
-  if (!process.env.ADMIN_PASSWORD) return true; // Auth optional if ADMIN_PASSWORD is not set
   const cookies = parseCookies(req);
   return cookies.career_ops_session === SESSION_TOKEN;
 }
@@ -68,33 +70,15 @@ app.get('/api/auth-status', (req, res) => {
   res.json({ authenticated: isAuthenticated(req), passwordProtected: Boolean(process.env.ADMIN_PASSWORD) });
 });
 
-// Protect all /api/* routes except login & auth-status
-app.use((req, res, next) => {
-  if (req.path === '/api/login' || req.path === '/api/auth-status' || !req.path.startsWith('/api')) {
+// Protect all /api/* routes except /api/login, /api/logout, and /api/auth-status
+app.use('/api', (req, res, next) => {
+  if (req.path === '/login' || req.path === '/logout' || req.path === '/auth-status') {
     return next();
   }
   if (!isAuthenticated(req)) {
     return res.status(401).json({ success: false, error: 'Unauthorized. Please login.' });
   }
   next();
-});
-
-// Serve public static assets & handle login redirect
-app.use(express.static(PUBLIC_DIR, { index: false }));
-
-app.use((req, res, next) => {
-  if (req.path.startsWith('/api') || req.path.startsWith('/output')) return next();
-  if (!isAuthenticated(req)) {
-    return res.sendFile(path.join(PUBLIC_DIR, 'login.html'));
-  }
-  next();
-});
-
-app.get('/', (req, res) => {
-  if (!isAuthenticated(req)) {
-    return res.sendFile(path.join(PUBLIC_DIR, 'login.html'));
-  }
-  res.sendFile(path.join(PUBLIC_DIR, 'index.html'));
 });
 
 // --- SSE Real-time Broadcaster ---
@@ -764,12 +748,12 @@ app.post('/api/agent/run', (req, res) => {
   });
 });
 
-// Serve client production static files if available
+// Serve Client Production App (Vite + React TypeScript build from client/dist)
 const CLIENT_DIST = path.join(__dirname, 'client', 'dist');
 if (fs.existsSync(CLIENT_DIST)) {
   app.use(express.static(CLIENT_DIST));
   app.use((req, res, next) => {
-    if (req.path.startsWith('/api') || req.path.startsWith('/output')) return next();
+    if (req.path.startsWith('/api') || req.path.startsWith('/output') || req.path.startsWith('/reports')) return next();
     res.sendFile(path.join(CLIENT_DIST, 'index.html'));
   });
 }
